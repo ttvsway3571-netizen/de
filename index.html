@@ -1,86 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dennise will you be my Valentine?</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dennise 💛</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Comic Sans MS', 'Poppins', cursive;
+    }
+
     body {
-      background-color: #ffd6e8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      margin: 0;
       height: 100vh;
-      font-family: "Comic Sans MS", cursive, sans-serif;
+      background: linear-gradient(135deg, #fff1f6, #ffe4e1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
 
     .card {
       background: white;
-      padding: 30px;
-      border-radius: 20px;
+      padding: 2.5rem;
+      border-radius: 25px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
       text-align: center;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    }
-
-    img {
-      width: 250px;
-      margin-bottom: 20px;
+      max-width: 420px;
+      animation: float 3s ease-in-out infinite;
     }
 
     h1 {
-      color: #ff5c8a;
+      color: #ff6f91;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      font-size: 1.1rem;
+      margin-bottom: 25px;
     }
 
     .buttons {
-      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
     }
 
     button {
-      font-size: 18px;
-      padding: 10px 20px;
-      margin: 10px;
       border: none;
-      border-radius: 10px;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border-radius: 999px;
       cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    #yesBtn {
-      background-color: #ff5c8a;
+    #yes {
+      background: #ffb6c1;
       color: white;
+      box-shadow: 0 10px 20px rgba(255,182,193,0.5);
     }
 
-    #noBtn {
-      background-color: #ccc;
+    #no {
+      background: #f1f1f1;
+      color: #777;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .heart {
       position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: rise 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes rise {
+      from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-120vh) scale(1.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="card">
-  <img id="mainImage" src="sanrio_pompompurin_3_480x480.webp">
-  <h1 id="question">Dennise will you be my Valentine?</h1>
+  <div class="card" id="card">
+    <h1>Dennise 💛</h1>
+    <p>
+      TE QUIERO PREGUNTAR ALGO 
+    </p>
 
-  <div class="buttons">
-    <button id="yesBtn" onclick="yesClicked()">Yes 💗</button>
-    <button id="noBtn" onmouseover="moveNo()">No 💔</button>
+    <h2>Will you be my Valentine? 💌</h2>
+
+    <div class="buttons">
+      <button id="yes">Yes 💕</button>
+      <button id="no">No 🙈</button>
+    </div>
   </div>
-</div>
 
-<script>
-  function moveNo() {
-    const noBtn = document.getElementById("noBtn");
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 100);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-  }
+  <div class="card hidden" id="yesCard">
+    <h1>YAYYYY 🥹💖</h1>
+    <p>
+      You just made my heart so happy.<br>
+      TE AMOOO, Dennise.
+    </p>
+    <p>Happy Valentine’s Day 💛</p>
+  </div>
 
-  function yesClicked() {
-    document.getElementById("mainImage").src = "tumblr_04204e73a3be079d666d19dd72997d12_18403901_400.webp";
-    document.getElementById("question").innerText = "YAY!!! 💕 TE AMOOOO MUAHHHH!";
-    document.querySelector(".buttons").style.display = "none";
-  }
-</script>
+  <script>
+    const yesBtn = document.getElementById("yes");
+    const noBtn = document.getElementById("no");
+    const card = document.getElementById("card");
+    const yesCard = document.getElementById("yesCard");
+
+    yesBtn.onclick = () => {
+      card.classList.add("hidden");
+      yesCard.classList.remove("hidden");
+      startHearts();
+    };
+
+    noBtn.onmouseover = () => {
+      noBtn.style.position = "absolute";
+      noBtn.style.left = Math.random() * 80 + "vw";
+      noBtn.style.top = Math.random() * 80 + "vh";
+    };
+
+    function startHearts() {
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 6000);
+      }, 300);
+    }
+  </script>
 
 </body>
 </html>
